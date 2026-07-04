@@ -2,22 +2,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Microsoft Yahei", sans-serif;
+    font-family: "PingFang SC", "Microsoft Yahei", sans-serif;
 }
 body {
     background-color: #f8f5eb;
-    padding: 20px 10px;
+    padding: 24px 16px;
 }
 .container {
     max-width: 500px;
     margin: 0 auto;
 }
 .card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    margin-bottom: 20px;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
 }
 .page {
     display: none;
@@ -28,128 +27,168 @@ body {
 h1 {
     text-align: center;
     color: #333;
-    font-size: 22px;
-    margin-bottom: 16px;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+h2.result-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 24px;
+    color: #333;
+}
+h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
 }
 .desc {
     color: #666;
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.7;
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 .btn {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     border: none;
-    border-radius: 12px;
-    font-size: 16px;
+    border-radius: 16px;
+    font-size: 17px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.25s ease;
 }
 .btn-red {
-    background: #e8a8a8;
+    background: #e8b8b8;
     color: #fff;
+    font-weight: 500;
 }
 .btn-red:hover {
-    background: #dd8888;
+    background: #e0a0a0;
 }
+.re-test-btn {
+    margin-top: 28px;
+    background: #b8c8e8;
+    color: #fff;
+    font-weight: 500;
+}
+.re-test-btn:hover {
+    background: #a0b8e0;
+}
+/* 进度条 */
 .progress-wrap {
-    margin: 12px 0 20px;
+    margin: 12px 0 24px;
 }
 .progress-text {
     font-size: 14px;
     color: #888;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 .progress-bar {
-    height: 8px;
-    background: #eee;
-    border-radius: 4px;
+    height: 10px;
+    background: #f1f1f1;
+    border-radius: 99px;
     overflow: hidden;
 }
 .progress-inner {
     height: 100%;
-    background: #e8a8a8;
+    background: #e8b8b8;
     width: 0%;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
+/* 答题选项 */
 .question-title {
-    font-size: 17px;
+    font-size: 18px;
     color: #333;
-    margin-bottom: 18px;
-    line-height: 1.5;
+    margin-bottom: 20px;
+    line-height: 1.6;
 }
 .option-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 .option-item {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 14px;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 16px;
     cursor: pointer;
     transition: 0.2s;
+    font-size: 16px;
 }
 .option-item:hover {
-    border-color: #e8a8a8;
+    border-color: #e8b8b8;
 }
 .option-item.selected {
     background: #fbe8e8;
-    border-color: #e8a8a8;
+    border-color: #e8b8b8;
 }
-.score-badge {
-    text-align: center;
-    padding: 10px 16px;
-    background: #fbe8e8;
-    border-radius: 99px;
-    display: inline-block;
-    margin: 0 auto 20px;
-    font-weight: bold;
-    color: #c45050;
-}
+/* 结果页双卡片 */
 .two-card-row {
     display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 14px;
+    margin-bottom: 16px;
 }
 .mini-card {
     flex: 1;
-    padding: 16px;
-    border-radius: 12px;
+    padding: 20px 12px;
+    border-radius: 20px;
+    text-align: center;
 }
 .card-nurture {
-    background: #fbe8e8;
+    background: #fcf0f0;
+    color: #b05060;
 }
 .card-consume {
-    background: #e8f0fb;
+    background: #f0f4fc;
+    color: #5068b0;
 }
-.mini-card h3 {
+.big-text {
+    font-size: 36px;
+    font-weight: bold;
+}
+.tip-text {
+    text-align: center;
+    color: #555;
     font-size: 15px;
-    margin-bottom: 8px;
+    margin-bottom: 24px;
+    line-height: 1.6;
 }
-.mini-card p {
-    font-size: 13px;
-    line-height: 1.5;
-    color: #444;
+/* 总分胶囊 */
+.score-badge {
+    text-align: center;
+    padding: 12px 20px;
+    background: #fcf0f0;
+    border-radius: 99px;
+    display: inline-block;
+    margin: 0 auto 24px;
+    font-weight: 500;
+    color: #b05060;
+    font-size: 18px;
+    display: block;
+    width: fit-content;
+}
+.divider {
+    border: none;
+    height: 1px;
+    background: #eee;
+    margin: 24px 0;
+}
+.radar-title {
+    font-size: 22px;
+    color: #222;
+    margin-bottom: 6px;
+}
+.radar-sub {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 .radar-box {
     width: 100%;
-    height: 400px;
-    margin: 20px 0;
+    height: 420px;
+    margin: 10px 0 24px;
 }
 .analysis-block {
-    margin-top: 20px;
     line-height: 1.7;
     color: #444;
-    font-size: 14px;
-}
-.re-test-btn {
-    margin-top: 24px;
-    background: #a8c8e8;
-    color: #fff;
-}
-.re-test-btn:hover {
-    background: #88b4dd;
+    font-size: 15px;
 }

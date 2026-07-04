@@ -1,15 +1,15 @@
-// 十维度定义
+// 十维度 顺时针顺序（和你截图雷达排列完全一致）
 const dimensionList = [
-    { name: "温暖", type: "nurture", color: "#e06666" },
-    { name: "理解", type: "nurture", color: "#e06666" },
-    { name: "引导", type: "nurture", color: "#e06666" },
-    { name: "陪伴", type: "nurture", color: "#e06666" },
-    { name: "专一", type: "nurture", color: "#e06666" },
-    { name: "冷暴力", type: "consume", color: "#4488cc" },
-    { name: "翻旧账", type: "consume", color: "#4488cc" },
-    { name: "阴阳怪气", type: "consume", color: "#4488cc" },
-    { name: "情感淡漠", type: "consume", color: "#4488cc" },
-    { name: "第三者倾向", type: "consume", color: "#4488cc" }
+    { name: "温暖", type: "nurture", color: "#e08898" },
+    { name: "冷暴力", type: "consume", color: "#7088c8" },
+    { name: "翻旧账", type: "consume", color: "#7088c8" },
+    { name: "阴阳怪气", type: "consume", color: "#7088c8" },
+    { name: "情感淡漠", type: "consume", color: "#7088c8" },
+    { name: "第三者", type: "consume", color: "#7088c8" },
+    { name: "专一", type: "nurture", color: "#e08898" },
+    { name: "陪伴", type: "nurture", color: "#e08898" },
+    { name: "引导", type: "nurture", color: "#e08898" },
+    { name: "理解", type: "nurture", color: "#e08898" }
 ];
 
 // 10道题目
@@ -24,7 +24,7 @@ const questionList = [
         ]
     },
     {
-        dimIndex: 1,
+        dimIndex: 9,
         title: "发生矛盾时，你能换位思考理解对方难处吗？",
         options: [
             { text: "只在乎自己感受，不肯让步", score: 0 },
@@ -33,7 +33,7 @@ const questionList = [
         ]
     },
     {
-        dimIndex: 2,
+        dimIndex: 8,
         title: "对方迷茫困惑时，你会怎么做？",
         options: [
             { text: "打击否定，觉得对方没用", score: 0 },
@@ -42,7 +42,7 @@ const questionList = [
         ]
     },
     {
-        dimIndex: 3,
+        dimIndex: 7,
         title: "空闲时间你愿意主动陪伴另一半吗？",
         options: [
             { text: "宁愿独处/和朋友玩，回避陪伴", score: 0 },
@@ -51,7 +51,7 @@ const questionList = [
         ]
     },
     {
-        dimIndex: 4,
+        dimIndex: 6,
         title: "面对异性示好，你能否保持专一边界？",
         options: [
             { text: "不拒绝暧昧，享受多人好感", score: 0 },
@@ -60,7 +60,7 @@ const questionList = [
         ]
     },
     {
-        dimIndex: 5,
+        dimIndex: 1,
         title: "吵架后你会使用冷暴力沉默对抗吗？",
         options: [
             { text: "长时间冷战，拒绝沟通", score: 100 },
@@ -69,7 +69,7 @@ const questionList = [
         ]
     },
     {
-        dimIndex: 6,
+        dimIndex: 2,
         title: "争执时你总翻过去的旧账指责对方？",
         options: [
             { text: "每次吵架都揪过往错误反复说", score: 100 },
@@ -78,7 +78,7 @@ const questionList = [
         ]
     },
     {
-        dimIndex: 7,
+        dimIndex: 3,
         title: "不满时你习惯阴阳怪气讽刺对方吗？",
         options: [
             { text: "常用反话挖苦，不肯直白表达", score: 100 },
@@ -87,7 +87,7 @@ const questionList = [
         ]
     },
     {
-        dimIndex: 8,
+        dimIndex: 4,
         title: "长期相处后你会变得情感淡漠敷衍？",
         options: [
             { text: "越来越冷淡，不愿表达爱意", score: 100 },
@@ -96,7 +96,7 @@ const questionList = [
         ]
     },
     {
-        dimIndex: 9,
+        dimIndex: 5,
         title: "感情平淡时你会寻求其他异性慰藉吗？",
         options: [
             { text: "容易动心，产生第三者想法", score: 100 },
@@ -106,7 +106,6 @@ const questionList = [
     }
 ];
 
-// 全局变量
 let currentQ = 0;
 let answerScores = new Array(10).fill(null);
 let radarChart = null;
@@ -117,7 +116,7 @@ function switchPage(pageId) {
     document.getElementById(pageId).classList.add("active");
 }
 
-// 读取本地存储进度
+// 读取本地存储
 function loadStorage() {
     const save = localStorage.getItem("loveTestSave");
     if (save) {
@@ -127,44 +126,35 @@ function loadStorage() {
     }
 }
 
-// 保存答题进度
 function saveStorage() {
-    localStorage.setItem("loveTestSave", JSON.stringify({
-        currentQ,
-        scores: answerScores
-    }));
+    localStorage.setItem("loveTestSave", JSON.stringify({ currentQ, scores: answerScores }));
 }
 
-// 进入测试
 function startTest() {
     loadStorage();
     renderQuestion();
     switchPage("page-answer");
 }
 
-// 渲染当前题目
+// 渲染题目
 function renderQuestion() {
     const q = questionList[currentQ];
     document.getElementById("current-q").innerText = currentQ + 1;
     document.getElementById("q-title").innerText = q.title;
     const percent = ((currentQ + 1) / 10) * 100;
     document.getElementById("progress-bar").style.width = percent + "%";
-
-    const optWrap = document.getElementById("opt-list");
-    optWrap.innerHTML = "";
-    q.options.forEach((opt) => {
+    const wrap = document.getElementById("opt-list");
+    wrap.innerHTML = "";
+    q.options.forEach(opt => {
         const div = document.createElement("div");
         div.className = "option-item";
         div.innerText = opt.text;
-        if (answerScores[currentQ] === opt.score) {
-            div.classList.add("selected");
-        }
+        if (answerScores[currentQ] === opt.score) div.classList.add("selected");
         div.onclick = () => selectOption(opt.score);
-        optWrap.appendChild(div);
-    });
+        wrap.appendChild(div);
+    })
 }
 
-// 选择选项
 function selectOption(score) {
     answerScores[currentQ] = score;
     saveStorage();
@@ -178,21 +168,58 @@ function selectOption(score) {
     }, 300);
 }
 
-// 计算总分+绘制雷达图
+// 计算结果、生成文案、渲染雷达图
 function calcResult() {
     let sumNurture = 0;
     let sumConsume = 0;
     const dimValues = [];
+    const nurtureVals = [];
+    const consumeVals = [];
     for (let i = 0; i < 10; i++) {
         const dim = dimensionList[i];
         const s = answerScores[i];
         dimValues.push(s);
-        if (dim.type === "nurture") sumNurture += s;
-        else sumConsume += s;
+        if (dim.type === "nurture") {
+            sumNurture += s;
+            nurtureVals.push(s);
+        } else {
+            sumConsume += s;
+            consumeVals.push(s);
+        }
     }
-    let total = sumNurture - sumConsume;
+    const total = sumNurture - sumConsume;
     document.getElementById("total-score").innerText = total;
 
+    // 自动生成优缺点文字（匹配截图样式）
+    let goodTxt, badTxt, tipTxt;
+    const avgN = nurtureVals.reduce((a,b)=>a+b,0)/5;
+    const avgC = consumeVals.reduce((a,b)=>a+b,0)/5;
+    if (avgN >= 80 && avgC <= 20) {
+        goodTxt = "全是优点";
+        badTxt = "无";
+        tipTxt = "优点五维整体都很突出，缺点没有明显突出的单一维度。";
+    } else if (avgN >=70 && avgC <=40) {
+        goodTxt = "滋养特质突出";
+        badTxt = "轻微消耗倾向";
+        tipTxt = "你擅长共情陪伴，但偶尔会有情绪化内耗行为。";
+    } else if (avgN >=50 && avgC <=50) {
+        goodTxt = "优缺点平衡";
+        badTxt = "优缺点平衡";
+        tipTxt = "滋养与消耗特质持平，相处有温柔也会有矛盾摩擦。";
+    } else if (avgN >=30) {
+        goodTxt = "少量滋养特质";
+        badTxt = "消耗倾向明显";
+        tipTxt = "容易冷淡、翻旧账，需要多学习包容与沟通。";
+    } else {
+        goodTxt = "滋养特质薄弱";
+        badTxt = "消耗特质突出";
+        tipTxt = "亲密关系内耗较重，容易让对方疲惫，建议调整相处模式。";
+    }
+    document.getElementById("good-text").innerText = goodTxt;
+    document.getElementById("bad-text").innerText = badTxt;
+    document.getElementById("tip-desc").innerText = tipTxt;
+
+    // 绘制雷达图
     const ctx = document.getElementById("radar-chart").getContext("2d");
     if (radarChart) radarChart.destroy();
     radarChart = new Chart(ctx, {
@@ -202,22 +229,27 @@ function calcResult() {
             datasets: [{
                 label: "维度得分",
                 data: dimValues,
-                backgroundColor: "rgba(232, 168, 168, 0.2)",
-                borderColor: "#e8a8a8",
-                pointBackgroundColor: "#dd7777",
-                pointRadius: 4
+                backgroundColor: "rgba(232, 168, 168, 0.18)",
+                borderColor: "#e08898",
+                pointBackgroundColor: "#e08898",
+                pointRadius: 5,
+                borderWidth:2
             }]
         },
         options: {
+            responsive:true,
+            maintainAspectRatio:false,
             scales: {
-                r: { min: 0, max: 100, ticks: { stepSize: 20 } }
-            }
+                r: { min: 0, max: 100, ticks: { stepSize: 20, display:false } }
+            },
+            plugins:{legend:{display:false}}
         }
     });
 
+    // 底部解析文案
     let analysis = "";
     if (total >= 300) {
-        analysis = `<strong>🌟高分恋爱人格（总分${total}）</strong><br>你的滋养特质远大于消耗特质，在亲密关系里温柔包容、专一有耐心，很少冷暴力/翻旧账，伴侣和你相处幸福感很高，是非常优质的恋爱伴侣。`;
+        analysis = `<strong>🌟高分恋爱人格（总分${total}）</strong><br>你的滋养特质远大于消耗特质，温柔包容、专一有耐心，很少冷暴力/翻旧账，伴侣和你相处幸福感很高，是非常优质的恋爱伴侣。`;
     } else if (total >= 100) {
         analysis = `<strong>✨中等偏优恋爱人格（总分${total}）</strong><br>你有不错的共情与陪伴能力，但偶尔会出现消耗型行为，只要减少冷暴力、阴阳怪气，感情会更加稳定甜蜜。`;
     } else if (total >= -100) {
